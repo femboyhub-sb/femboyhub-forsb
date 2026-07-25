@@ -56,14 +56,14 @@ local Tab3 = Window:MakeTab({
     PremiumOnly = false
 })
 
-Tab3:AddButton({
+Tab2:AddButton({
     Name = "Nexer slap farm v2 (OP!)",
     Callback = function()
         print("button pressed")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/NewNexer/NexerHub/refs/heads/main/SB/SFs/SFComponents%3D2.0EGRR.luau"))()
     end    
 })
-Tab3:AddButton({
+Tab2:AddButton({
     Name = "St1mlx mastery helper (key, Auto Bob contained)",
     Callback = function()
         print("button pressed")
