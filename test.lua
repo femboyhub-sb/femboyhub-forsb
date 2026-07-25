@@ -166,5 +166,82 @@ game.Players.LocalPlayer:Kick("if u support spliot then go fucking kill yourself
 Name = <string> - The name of the button.
 Callback = <function> - Function executed when the button is pressed.
 ]]
+Tab1:AddButton({
+    Name = "Auto Bob (75k+ slaps)",
+    Callback = function()
+        print("button pressed")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+
+local lp = Players.LocalPlayer
+local placeId = game.PlaceId
+local currentJob = game.JobId
+
+local req = (syn and syn.request) or (http and http.request) or http_request or request
+
+local function hop()
+    if not req then 
+        return TeleportService:Teleport(placeId, lp) 
+    end
+
+    local url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/0?sortOrder=Desc&limit=100"
+    local res = req({Url = url, Method = "GET"})
+
+    if res and res.Body then
+        local data = HttpService:JSONDecode(res.Body)
+        if data and data.data then
+            for _, server in pairs(data.data) do
+                if server.id ~= currentJob and server.playing < server.maxPlayers then
+                    local success = pcall(function()
+                        TeleportService:TeleportToPlaceInstance(placeId, server.id, lp)
+                    end)
+                    if success then return end
+                end
+            end
+        end
+    end
+
+    TeleportService:Teleport(placeId, lp)
+end
+
+local equip = debug.getupvalues(require(game.ReplicatedStorage.BACKEND.Lib.Network).fireServer)[3]("SelectGlove")
+equip:FireServer("God's Hand")
+
+task.wait(0.5)
+
+game.ReplicatedStorage.TimestopJump:FireServer()
+game.ReplicatedStorage.Timestopchoir:FireServer()
+game.ReplicatedStorage.Timestop:FireServer()
+
+task.wait(0.1)
+
+equip:FireServer("Replica")
+
+task.wait(0.5)
+
+local hrp = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+hrp.CFrame = CFrame.new(-1210.05, 328.22, 2.48, 0.748, -0.000, 0.664, -0.000, 1.000, 0.000, -0.664, -0.000, 0.748)
+
+task.wait(0.3)
+
+local DuplicateEvent = game:GetService("ReplicatedStorage").Duplicate
+for i = 1, 150000 do
+    DuplicateEvent:FireServer(true)
+    if i % 100 == 0 then
+        task.wait()
+    end
+end
+
+task.wait(1)
+hop()
+            
+    end    
+})
+
+--[[
+Name = <string> - The name of the button.
+Callback = <function> - Function executed when the button is pressed.
+]]
 
 OrionLib:Init()
