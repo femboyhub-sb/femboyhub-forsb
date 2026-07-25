@@ -1,3 +1,4 @@
+-- open source
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Pro666Pro/DraggableOrionLib/main/main.lua")))()
 local Window = OrionLib:MakeWindow({
     Name = "Femboy Hub",
@@ -162,7 +163,7 @@ Tab3:AddButton({
 })
 
 Tab3:AddButton({
-    Name = "St1mlx mastery helper (key, Auto Bob contained)",
+    Name = "St1mlx mastery helper (key)",
     Callback = function()
         print("button pressed")
         loadstring(game:HttpGet('https://raw.githubusercontent.com/st1mlx/bebebe/refs/heads/main/SBHub'))()
