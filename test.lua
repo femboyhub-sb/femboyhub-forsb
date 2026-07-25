@@ -7,7 +7,7 @@ local Window = OrionLib:MakeWindow({
     ConfigFolder = "OrionTest"
 })
 
--- Отправка уведомления при запуске
+-- notifications
 OrionLib:MakeNotification({
     Name = "Scripts here are useful!",
     Content = "Notification content...",
@@ -15,7 +15,7 @@ OrionLib:MakeNotification({
     Time = 5
 })
 
--- Ссылки на сервисы и игрока для работы нашего авто-боба
+-- auto bob services
 local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
@@ -24,7 +24,7 @@ local placeId = game.PlaceId
 local currentJob = game.JobId
 local req = (syn and syn.request) or (http and http.request) or http_request or request
 
--- Функция сервер-хопа для нашего авто-боба
+-- auto bob server hop
 local function hop()
     if not req then 
         return TeleportService:Teleport(placeId, lp) 
@@ -47,7 +47,7 @@ local function hop()
     TeleportService:Teleport(placeId, lp)
 end
 
--- ================= Вкладка Slap Battles Badges =================
+-- ================= Slap Battles Badges =================
 local Tab1 = Window:MakeTab({
     Name = "Slap Battles Badges",
     Icon = "rbxassetid://4483345998",
@@ -108,7 +108,7 @@ Tab1:AddButton({
     end    
 })
 
--- НАШ СОБСТВЕННЫЙ АВТО-БОБ (Больше не ломает твои вкладки!)
+-- auto bob itself lol
 Tab1:AddButton({
     Name = "Auto Bob (75k+ slaps)",
     Callback = function()
@@ -146,14 +146,14 @@ Tab1:AddButton({
     end    
 })
 
--- ================= Вкладка Slap Farmers =================
+-- ================= Slap Farmers =================
 local Tab3 = Window:MakeTab({
     Name = "Slap Farmers",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
--- ИСПРАВЛЕНО: Изменено с Tab2 на Tab3, чтобы кнопки отображались во вкладке Slap Farmers
+-- instead of being tab2 its tab3 now
 Tab3:AddButton({
     Name = "Nexer slap farm v2 (OP!)",
     Callback = function()
@@ -170,7 +170,7 @@ Tab3:AddButton({
     end    
 })
 
--- ================= Вкладка Credits =================
+-- ================= Credits =================
 local Tab4 = Window:MakeTab({
     Name = "Credits",
     Icon = "rbxassetid://4483345998",
@@ -182,7 +182,7 @@ Tab4:AddParagraph("2nd creator","nerna coder-zemboxosx")
 Tab4:AddParagraph("3rd creator","deltarune_tomorrow")
 Tab4:AddParagraph("Thanks to..","Nexer open sourced scripts and kindness!")
 
--- ================= Вкладка Funny =================
+-- ================= Funny =================
 local Tab5 = Window:MakeTab({
     Name = "Funny",
     Icon = "rbxassetid://4483345998",
@@ -205,11 +205,11 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
--- Функция очистки ника и бабблов чата
+-- clear ur nickname
 local function sanitizeCharacter(character)
     if not character then return end
 
-    -- 1. Скрываем стандартный ник Humanoid
+    -- hiding humanoid nickname
     local humanoid = character:WaitForChild("Humanoid", 5)
     if humanoid then
         humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
@@ -219,18 +219,18 @@ local function sanitizeCharacter(character)
     local head = character:WaitForChild("Head", 5)
     if not head then return end
 
-    -- 2. Скрываем уже существующие BillboardGui (включая чат)
-    for _, child in pairs(head:GetChildren()) do
+    -- 2. hiding billboard ui
+                for _, child in pairs(head:GetChildren()) do
         if child:IsA("BillboardGui") then
             child.Enabled = false
         end
     end
 
-    -- 3. РЕАКЦИЯ НА ЧАТ: Моментально отключаем новые бабблы, появляющиеся при отправке сообщений
+    -- 3. lets see if were good with chat
     head.ChildAdded:Connect(function(child)
         if child:IsA("BillboardGui") then
             child.Enabled = false
-            -- Дополнительно проверяем текстовые метки внутри облачка
+            -- is there anything in bubble?
             for _, desc in pairs(child:GetDescendants()) do
                 if desc:IsA("TextLabel") and string.find(string.lower(desc.Text), string.lower(LocalPlayer.Name)) then
                     desc.Visible = false
@@ -240,7 +240,7 @@ local function sanitizeCharacter(character)
     end)
 end
 
--- Обработка текущего и новых персонажей при респавне
+-- analyzing users for anothers and ourself 
 if LocalPlayer.Character then
     sanitizeCharacter(LocalPlayer.Character)
 end
@@ -249,7 +249,7 @@ LocalPlayer.CharacterAdded:Connect(function(character)
     sanitizeCharacter(character)
 end)
 
--- Защитный цикл на случай принудительного обновления сервером
+-- protected cycle idk
 RunService.RenderStepped:Connect(function()
     local char = LocalPlayer.Character
     if char and char:FindFirstChild("Head") then
