@@ -267,4 +267,160 @@ end)
 Name = <string> - The name of the button.
 Callback = <function> - Function executed when the button is pressed.
 ]]
+
+Tab5:AddButton({
+    Name = "Teleport GUI",
+    Callback = function()
+        print("button pressed")
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local DragHeader = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local CloseButton = Instance.new("TextButton")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
+local OpenButton = Instance.new("TextButton")
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ResetOnSpawn = false
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.Position = UDim2.new(0.05, 0, 0.2, 0)
+Frame.Size = UDim2.new(0, 230, 0, 400)
+Frame.BorderSizePixel = 0
+
+DragHeader.Parent = Frame
+DragHeader.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+DragHeader.Size = UDim2.new(1, 0, 0, 30)
+DragHeader.BorderSizePixel = 0
+
+Title.Parent = DragHeader
+Title.Size = UDim2.new(1, -30, 1, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "  Slap Teleport"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 14
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+CloseButton.Parent = DragHeader
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -30, 0, 0)
+CloseButton.BackgroundTransparency = 1
+CloseButton.Text = "Close"
+CloseButton.TextColor3 = Color3.fromRGB(255, 100, 100)
+CloseButton.Font = Enum.Font.SourceSansBold
+CloseButton.TextSize = 12
+
+CloseButton.MouseButton1Click:Connect(function()
+    Frame.Visible = false
+    OpenButton.Visible = true
+end)
+
+OpenButton.Parent = ScreenGui
+OpenButton.Size = UDim2.new(0, 70, 0, 30)
+OpenButton.Position = UDim2.new(0.05, 0, 0.15, 0)
+OpenButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+OpenButton.BorderSizePixel = 0
+OpenButton.Text = "Open"
+OpenButton.TextColor3 = Color3.fromRGB(100, 255, 100)
+OpenButton.Font = Enum.Font.SourceSansBold
+OpenButton.TextSize = 14
+OpenButton.Visible = false
+
+OpenButton.MouseButton1Click:Connect(function()
+    Frame.Visible = true
+    OpenButton.Visible = false
+end)
+
+ScrollingFrame.Parent = Frame
+ScrollingFrame.Position = UDim2.new(0, 5, 0, 35)
+ScrollingFrame.Size = UDim2.new(1, -10, 1, -40)
+ScrollingFrame.BackgroundTransparency = 1
+ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 460)
+ScrollingFrame.ScrollBarThickness = 6
+
+UIListLayout.Parent = ScrollingFrame
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 5)
+
+local locations = {
+    {name = "Главный остров", cframe = CFrame.new(1.58, -5.17, 55.70, 0.096, 0.000, 0.995, 0.000, 1.000, -0.000, -0.995, 0.000, 0.096)},
+    {name = "Правый остров", cframe = CFrame.new(4.39, -5.07, 186.55, -0.999, -0.000, -0.041, -0.000, 1.000, 0.000, 0.041, 0.000, -0.999)},
+    {name = "Левый остров", cframe = CFrame.new(-16.71, -5.14, -195.11, 0.982, 0.000, 0.190, -0.000, 1.000, 0.000, -0.190, -0.000, 0.982)},
+    {name = "Островок у Арены (Яблоки)", cframe = CFrame.new(-191.60, -5.28, -10.29, -0.409, 0.000, 0.913, 0.000, 1.000, -0.000, -0.913, -0.000, -0.409)},
+    {name = "Где растут слепы", cframe = CFrame.new(-376.18, 51.14, -11.84, -0.363, 0.000, 0.932, 0.000, 1.000, -0.000, -0.932, -0.000, -0.363)},
+    {name = "Где облако", cframe = CFrame.new(-125.00, -4.56, 121.64, -0.356, -0.000, 0.934, -0.000, 1.000, -0.000, -0.934, -0.000, -0.356)},
+    {name = "Дефолт арена", cframe = CFrame.new(118.63, 359.98, 16.11, 0.982, 0.000, -0.191, -0.000, 1.000, 0.000, 0.191, -0.000, 0.982)},
+    {name = "Остров с огромным маяком", cframe = CFrame.new(209.33, -15.72, -0.78, 0.730, 0.000, -0.684, -0.000, 1.000, 0.000, 0.684, -0.000, 0.730)},
+    {name = "Остров с пушкой", cframe = CFrame.new(266.92, 33.68, 198.92, 0.331, -0.000, -0.944, 0.000, 1.000, -0.000, -0.944, 0.000, 0.331)},
+    {name = "Хитман (Задания)", cframe = CFrame.new(17897.19, -130.16, -3528.10, -0.972, -0.000, -0.237, 0.000, 1.000, -0.000, 0.237, -0.000, -0.972)},
+    {name = "Лобби", cframe = CFrame.new(-1198.29, 327.91, -1.44, 0.008, 0.000, -1.000, -0.000, 1.000, 0.000, 1.000, 0.000, 0.008)}
+}
+
+local UserInputService = game:GetService("UserInputService")
+local dragging, dragInput, dragStart, startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+DragHeader.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = Frame.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+DragHeader.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+local function teleport(targetCFrame)
+    local player = game.Players.LocalPlayer
+    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        player.Character.HumanoidRootPart.CFrame = targetCFrame
+    end
+end
+
+for i, loc in ipairs(locations) do
+    local Button = Instance.new("TextButton")
+    Button.Parent = ScrollingFrame
+    Button.Size = UDim2.new(1, 0, 0, 32)
+    Button.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.Text = loc.name
+    Button.Font = Enum.Font.SourceSans
+    Button.TextSize = 14
+    Button.BorderSizePixel = 0
+    
+    Button.MouseButton1Click:Connect(function()
+        teleport(loc.cframe)
+    end)
+            end
+            
+    end    
+})
+
+--[[
+Name = <string> - The name of the button.
+Callback = <function> - Function executed when the button is pressed.
+]]
 OrionLib:Init()
