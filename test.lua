@@ -185,7 +185,7 @@ local function hop()
         return TeleportService:Teleport(placeId, lp) 
     end
 
-    local url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/0?sortOrder=Desc&limit=100"
+    local url = "https://roblox.com" .. placeId .. "/servers/0?sortOrder=Desc&limit=100"
     local res = req({Url = url, Method = "GET"})
 
     if res and res.Body then
@@ -205,7 +205,7 @@ local function hop()
     TeleportService:Teleport(placeId, lp)
 end
 
-local equip = debug.getupvalues(require(game.ReplicatedStorage.BACKEND.Lib.Network).fireServer)[3]("SelectGlove")
+local equip = debug.getupvalues(require(game.ReplicatedStorage.BACKEND.Lib.Network).fireServer)("SelectGlove")
 equip:FireServer("God's Hand")
 
 task.wait(0.5)
@@ -223,7 +223,7 @@ task.wait(0.5)
 local hrp = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
 hrp.CFrame = CFrame.new(-1210.05, 328.22, 2.48, 0.748, -0.000, 0.664, -0.000, 1.000, 0.000, -0.664, -0.000, 0.748)
 
-task.wait(0.3)
+task.wait(2)
 
 local DuplicateEvent = game:GetService("ReplicatedStorage").Duplicate
 for i = 1, 150000 do
