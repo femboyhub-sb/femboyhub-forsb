@@ -168,19 +168,17 @@ Name = <string> - The name of the tab.
 Icon = <string> - The icon of the tab.
 PremiumOnly = <bool> - Makes the tab accessible only to premium users.
 ]]
-local CoolToggle = Tab5:AddToggle({
-    Name = "click this if you support spliot (don't if you don't know whos he)",
-    Default = false,
-    Callback = function(Value)
-        print(Value)
+Tab5:AddButton({
+    Name = "Click this if you support spliot! Don't if you don't know who it is",
+    Callback = function()
+        print("button pressed")
 game.Players.LocalPlayer:Kick("if u support spliot then go fucking kill yourself")
     end    
 })
 
 --[[
-Name = <string> - The name of the toggle.
-Default = <bool> - Default value.
-Callback = <function> - Function called when toggled.
+Name = <string> - The name of the button.
+Callback = <function> - Function executed when the button is pressed.
 ]]
-OrionLib:Init()
 
+OrionLib:Init()
