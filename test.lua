@@ -18,20 +18,6 @@ Content = <string> - Message shown in the notification.
 Image = <string> - Icon image.
 Time = <number> - Duration of the notification (in seconds).
 ]]
--- Вкладка Trolling
-local Tab2 = Window:MakeTab({
-    Name = "trolling",
-    Icon = "rbxassetid://15315284749",
-    PremiumOnly = false
-})
-
-Tab2:AddButton({
-    Name = "fling gui",
-    Callback = function()
-        print("button pressed")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/K1LAS1K/Ultimate-Fling-GUI/main/flingscript.lua"))()
-    end    
-})
 
 -- Вкладка Slap Battles Badges
 local Tab1 = Window:MakeTab({
