@@ -197,4 +197,74 @@ Tab5:AddButton({
     end    
 })
 
+Tab5:AddButton({
+    Name = "Button!",
+    Callback = function()
+        print("button pressed")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+-- Функция очистки ника и бабблов чата
+local function sanitizeCharacter(character)
+    if not character then return end
+
+    -- 1. Скрываем стандартный ник Humanoid
+    local humanoid = character:WaitForChild("Humanoid", 5)
+    if humanoid then
+        humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+        humanoid.DisplayName = ""
+    end
+
+    local head = character:WaitForChild("Head", 5)
+    if not head then return end
+
+    -- 2. Скрываем уже существующие BillboardGui (включая чат)
+    for _, child in pairs(head:GetChildren()) do
+        if child:IsA("BillboardGui") then
+            child.Enabled = false
+        end
+    end
+
+    -- 3. РЕАКЦИЯ НА ЧАТ: Моментально отключаем новые бабблы, появляющиеся при отправке сообщений
+    head.ChildAdded:Connect(function(child)
+        if child:IsA("BillboardGui") then
+            child.Enabled = false
+            -- Дополнительно проверяем текстовые метки внутри облачка
+            for _, desc in pairs(child:GetDescendants()) do
+                if desc:IsA("TextLabel") and string.find(string.lower(desc.Text), string.lower(LocalPlayer.Name)) then
+                    desc.Visible = false
+                end
+            end
+        end
+    end)
+end
+
+-- Обработка текущего и новых персонажей при респавне
+if LocalPlayer.Character then
+    sanitizeCharacter(LocalPlayer.Character)
+end
+
+LocalPlayer.CharacterAdded:Connect(function(character)
+    sanitizeCharacter(character)
+end)
+
+-- Защитный цикл на случай принудительного обновления сервером
+RunService.RenderStepped:Connect(function()
+    local char = LocalPlayer.Character
+    if char and char:FindFirstChild("Head") then
+        for _, gui in pairs(char.Head:GetChildren()) do
+            if gui:IsA("BillboardGui") and gui.Enabled then
+                gui.Enabled = false
+            end
+        end
+    end
+end)
+    end    
+})
+
+--[[
+Name = <string> - The name of the button.
+Callback = <function> - Function executed when the button is pressed.
+]]
 OrionLib:Init()
