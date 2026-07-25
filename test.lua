@@ -19,13 +19,13 @@ Image = <string> - Icon image.
 Time = <number> - Duration of the notification (in seconds).
 ]]
 -- Вкладка Trolling
-local Tab1 = Window:MakeTab({
+local Tab6 = Window:MakeTab({
     Name = "trolling",
     Icon = "rbxassetid://15315284749",
     PremiumOnly = false
 })
 
-Tab1:AddButton({
+Tab6:AddButton({
     Name = "fling gui",
     Callback = function()
         print("button pressed")
@@ -34,13 +34,13 @@ Tab1:AddButton({
 })
 
 -- Вкладка Slap Battles Badges
-local Tab2 = Window:MakeTab({
+local Tab1 = Window:MakeTab({
     Name = "Slap Battles Badges",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
 
-Tab2:AddButton({
+Tab1:AddButton({
     Name = "Auto Recall",
     Callback = function()
         print("button pressed")
@@ -55,7 +55,7 @@ Tab2:AddButton({
     end
 })
 
-Tab2:AddButton({
+Tab1:AddButton({
     Name = "Poltergeist (ONLY HALLOWEEN)",
     Callback = function()
         print("button pressed")
@@ -89,7 +89,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/st1mlx/bebebe/refs/he
 Name = <string> - The name of the button.
 Callback = <function> - Function executed when the button is pressed.
 ]]
-Tab2:AddButton({
+Tab1:AddButton({
     Name = "Instant ice skate",
     Callback = function()
         print("button pressed")
@@ -121,7 +121,7 @@ local CoolParagraph = Tab4:AddParagraph("2nd creator","nerna coder-zemboxosx")
 local CoolParagraph = Tab4:AddParagraph("3rd creator","deltarune_tomorrow")
 local CoolParagraph = Tab4:AddParagraph("Thanks to..","Nexer open sourced scripts and kindness!")
 
-Tab2:AddButton({
+Tab1:AddButton({
     Name = "Instant lamp",
     Callback = function()
         print("button pressed")
@@ -144,7 +144,7 @@ Name = <string> - The name of the button.
 Callback = <function> - Function executed when the button is pressed.
 ]]
 
-Tab2:AddButton({
+Tab1:AddButton({
     Name = "Auto 250 and Disarm (bubble) uses kill helper!",
     Callback = function()
         print("button pressed")
