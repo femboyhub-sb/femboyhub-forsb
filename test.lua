@@ -19,13 +19,13 @@ Image = <string> - Icon image.
 Time = <number> - Duration of the notification (in seconds).
 ]]
 -- Вкладка Trolling
-local Tab6 = Window:MakeTab({
+local Tab2 = Window:MakeTab({
     Name = "trolling",
     Icon = "rbxassetid://15315284749",
     PremiumOnly = false
 })
 
-Tab6:AddButton({
+Tab2:AddButton({
     Name = "fling gui",
     Callback = function()
         print("button pressed")
