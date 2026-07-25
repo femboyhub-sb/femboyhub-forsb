@@ -198,7 +198,7 @@ Tab5:AddButton({
 })
 
 Tab5:AddButton({
-    Name = "Button!",
+    Name = "Hide your username",
     Callback = function()
         print("button pressed")
 local Players = game:GetService("Players")
